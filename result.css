@@ -1,0 +1,37 @@
+body{
+    margin:0;
+    font-family:Poppins,sans-serif;
+    background:#0d1b2a;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.result-card{
+    background:white;
+    width:500px;
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,.3);
+}
+
+.result-card h1{
+    color:#2563eb;
+}
+
+.result-card p{
+    font-size:20px;
+}
+
+button{
+    margin-top:20px;
+    padding:12px 30px;
+    border:none;
+    background:#2563eb;
+    color:white;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:18px;
+}

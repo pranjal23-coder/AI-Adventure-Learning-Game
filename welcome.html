@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Welcome | AI Adventure Learning Game</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/welcome.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="overlay">
+
+    <!-- ================= LEFT SIDE ================= -->
+
+    <div class="left-panel">
+
+        <img src="{{ url_for('static', filename='images/logo.png') }}"
+        class="logo"
+        alt="Logo">
+
+        <h1>
+            AI Adventure <br>
+            Learning Game
+        </h1>
+
+        <p class="tagline">
+            Learn • Play • Explore
+        </p>
+
+        <p class="description">
+
+            Welcome to an AI-powered magical learning world.
+
+            Solve exciting quizzes, unlock fantasy adventures,
+
+            earn XP and become a Master Explorer.
+
+        </p>
+
+        <div class="features">
+
+            <div class="feature">
+
+                <i class="fa-solid fa-robot"></i>
+
+                <span>AI Powered Stories</span>
+
+            </div>
+
+            <div class="feature">
+
+                <i class="fa-solid fa-book-open"></i>
+
+                <span>Interactive Learning</span>
+
+            </div>
+
+            <div class="feature">
+
+                <i class="fa-solid fa-trophy"></i>
+
+                <span>XP, Coins & Rewards</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= RIGHT SIDE ================= -->
+
+    <div class="right-panel">
+
+        <div class="welcome-card">
+
+            <img src="{{ url_for('static', filename='images/logo.png') }}"
+            class="card-logo"
+            alt="Logo">
+
+            <h2>Welcome Hero!</h2>
+
+            <p>
+
+                Choose an option below to begin
+
+                your magical learning adventure.
+
+            </p>
+
+            <a href="{{ url_for('login') }}"
+            class="btn login-btn">
+
+                Login
+
+            </a>
+
+            <a href="{{ url_for('register') }}"
+            class="btn register-btn">
+
+                Create Account
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

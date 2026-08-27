@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Coding Quiz | AI Adventure Learning Game</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/quiz.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <!-- ==========================
+         SIDEBAR
+    =========================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo-section">
+
+            <img src="{{ url_for('static', filename='images/logo.png') }}"
+                 class="logo">
+
+            <h2>AI Adventure</h2>
+
+            <p>Learning Game</p>
+
+        </div>
+
+
+        <nav class="menu">
+
+            <a href="{{ url_for('dashboard') }}"
+               class="menu-item">
+
+                <i class="fas fa-house"></i>
+                Dashboard
+
+            </a>
+
+
+            <a href="{{ url_for('quiz', level=level) }}"
+               class="menu-item active">
+
+                <i class="fas fa-code"></i>
+                Coding Quiz
+
+            </a>
+
+
+            <a href="{{ url_for('levels') }}"
+               class="menu-item">
+
+                <i class="fas fa-map"></i>
+                Levels
+
+            </a>
+
+
+            <a href="{{ url_for('leaderboard') }}"
+               class="menu-item">
+
+                <i class="fas fa-trophy"></i>
+                Leaderboard
+
+            </a>
+
+
+            <a href="{{ url_for('profile') }}"
+               class="menu-item">
+
+                <i class="fas fa-user"></i>
+                Profile
+
+            </a>
+
+
+            <a href="{{ url_for('achievement') }}"
+               class="menu-item">
+
+                <i class="fas fa-medal"></i>
+                Achievements
+
+            </a>
+
+
+            <a href="{{ url_for('settings') }}"
+               class="menu-item">
+
+                <i class="fas fa-gear"></i>
+                Settings
+
+            </a>
+
+
+            <a href="{{ url_for('logout') }}"
+               class="menu-item logout">
+
+                <i class="fas fa-right-from-bracket"></i>
+                Logout
+
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+
+    <!-- ==========================
+         MAIN CONTENT
+    =========================== -->
+
+    <main class="main-content">
+
+
+        <!-- ==========================
+             TOP BAR
+        =========================== -->
+
+        <div class="top-bar">
+
+            <div>
+
+                <h1>⚔ Coding Challenge</h1>
+
+                <p>Level {{ level }}</p>
+
+            </div>
+
+
+            <div class="quiz-info">
+
+                <span>
+                    ⭐ 10 XP / Question
+                </span>
+
+                <span id="timer">
+                    ⏱ 10:00
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==========================
+             QUIZ FORM
+        =========================== -->
+
+        <form id="quizForm"
+              action="{{ url_for('submit_quiz') }}"
+              method="POST">
+
+
+            <!-- LEVEL -->
+
+            <input type="hidden"
+                   name="level"
+                   value="{{ level }}">
+
+
+            <!-- ALL ANSWERS JSON -->
+
+            <input type="hidden"
+                   name="answers_json"
+                   id="answers_json"
+                   value="">
+
+
+            <!-- TIME TAKEN -->
+
+            <input type="hidden"
+                   name="time_taken"
+                   id="timeTaken"
+                   value="0">
+
+
+
+            <!-- ==========================
+                 QUESTIONS
+            =========================== -->
+
+            {% for q in questions %}
+
+            <div class="question-page"
+                 data-question="{{ loop.index }}"
+                 {% if not loop.first %}
+                 style="display:none;"
+                 {% endif %}>
+
+
+                <div class="question-card">
+
+
+                    <!-- QUESTION NUMBER -->
+
+                    <div class="question-number">
+
+                        Question {{ loop.index }}
+                        of {{ questions|length }}
+
+                    </div>
+
+
+
+                    <!-- QUESTION -->
+
+                    <h2>
+
+                        {{ q.question }}
+
+                    </h2>
+
+
+
+                    <!-- ==========================
+                         OPTIONS
+                    =========================== -->
+
+                    <div class="options">
+
+
+                        <!-- OPTION A -->
+
+                        <label class="option">
+
+                            <input type="radio"
+                                   name="question_{{ q.id }}"
+                                   value="A">
+
+                            <span>
+
+                                {{ q.option_a }}
+
+                            </span>
+
+                        </label>
+
+
+
+                        <!-- OPTION B -->
+
+                        <label class="option">
+
+                            <input type="radio"
+                                   name="question_{{ q.id }}"
+                                   value="B">
+
+                            <span>
+
+                                {{ q.option_b }}
+
+                            </span>
+
+                        </label>
+
+
+
+                        <!-- OPTION C -->
+
+                        <label class="option">
+
+                            <input type="radio"
+                                   name="question_{{ q.id }}"
+                                   value="C">
+
+                            <span>
+
+                                {{ q.option_c }}
+
+                            </span>
+
+                        </label>
+
+
+
+                        <!-- OPTION D -->
+
+                        <label class="option">
+
+                            <input type="radio"
+                                   name="question_{{ q.id }}"
+                                   value="D">
+
+                            <span>
+
+                                {{ q.option_d }}
+
+                            </span>
+
+                        </label>
+
+
+                    </div>
+
+
+
+                    <!-- ==========================
+                         FEEDBACK
+                    =========================== -->
+
+                    <div class="answer-feedback"
+                         style="display:none;">
+
+
+                        <h3 class="feedback-title"></h3>
+
+
+                        <p>
+
+                            <strong>
+                                Your Answer:
+                            </strong>
+
+                            <span class="user-answer"></span>
+
+                        </p>
+
+
+                        <p>
+
+                            <strong>
+                                Correct Answer:
+                            </strong>
+
+                            <span class="correct-answer"></span>
+
+                        </p>
+
+
+
+                        <!-- AI MENTOR -->
+
+                        <div class="mentor-feedback">
+
+                            <h3>
+                                🤖 AI Mentor
+                            </h3>
+
+                            <p class="mentor-message"></p>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- ==========================
+                         NAVIGATION
+                    =========================== -->
+
+                    <div class="navigation-buttons">
+
+
+                        {% if not loop.first %}
+
+                        <button type="button"
+                                class="prev-btn">
+
+                            ← Previous
+
+                        </button>
+
+                        {% endif %}
+
+
+
+                        {% if not loop.last %}
+
+                        <button type="button"
+                                class="next-btn">
+
+                            Next →
+
+                        </button>
+
+                        {% endif %}
+
+
+
+                        {% if loop.last %}
+
+                        <button type="submit"
+                                class="submit-btn">
+
+                            🎯 Submit Quiz
+
+                        </button>
+
+                        {% endif %}
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+
+        </form>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- ==========================
+     JAVASCRIPT
+=========================== -->
+
+<script>
+
+
+/* =========================================
+   QUESTIONS
+========================================= */
+
+const pages =
+    document.querySelectorAll(".question-page");
+
+
+const nextButtons =
+    document.querySelectorAll(".next-btn");
+
+
+const previousButtons =
+    document.querySelectorAll(".prev-btn");
+
+
+const quizForm =
+    document.getElementById("quizForm");
+
+
+const timerElement =
+    document.getElementById("timer");
+
+
+const timeTakenInput =
+    document.getElementById("timeTaken");
+
+
+const answersJsonInput =
+    document.getElementById("answers_json");
+
+
+
+/* =========================================
+   CURRENT QUESTION
+========================================= */
+
+let currentQuestion = 0;
+
+
+
+/* =========================================
+   STORE ANSWERS
+========================================= */
+
+const selectedAnswers = {};
+
+
+
+/* =========================================
+   CORRECT ANSWERS
+========================================= */
+
+const correctAnswers = {
+
+    {% for q in questions %}
+
+    "{{ q.id }}":
+        "{{ q.correct_answer|upper }}"
+
+    {% if not loop.last %},{% endif %}
+
+    {% endfor %}
+
+};
+
+
+
+/* =========================================
+   EXPLANATIONS
+========================================= */
+
+const explanations = {
+
+    {% for q in questions %}
+
+    "{{ q.id }}":
+        {{ q.explanation|tojson }}
+
+    {% if not loop.last %},{% endif %}
+
+    {% endfor %}
+
+};
+
+
+
+/* =========================================
+   SAVE ANSWER WHEN RADIO IS SELECTED
+========================================= */
+
+document.querySelectorAll(
+    '#quizForm input[type="radio"]'
+).forEach(function(radio) {
+
+
+    radio.addEventListener(
+        "change",
+        function() {
+
+
+            /*
+               Store answer using question name.
+
+               Example:
+
+               question_154 : A
+               question_155 : B
+            */
+
+            selectedAnswers[this.name] =
+                this.value;
+
+
+            console.log(
+                "Selected:",
+                this.name,
+                "=>",
+                this.value
+            );
+
+
+        }
+    );
+
+
+});
+
+
+
+/* =========================================
+   SHOW QUESTION
+========================================= */
+
+function showQuestion(index) {
+
+
+    pages.forEach(function(page, i) {
+
+
+        if (i === index) {
+
+            page.style.display = "block";
+
+        }
+
+        else {
+
+            page.style.display = "none";
+
+        }
+
+
+    });
+
+
+    /*
+       Scroll to top
+    */
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+
+}
+
+
+
+/* =========================================
+   CHECK CURRENT ANSWER
+========================================= */
+
+function checkCurrentAnswer() {
+
+
+    const page =
+        pages[currentQuestion];
+
+
+    const selected =
+        page.querySelector(
+            'input[type="radio"]:checked'
+        );
+
+
+    /*
+       No answer selected
+    */
+
+    if (!selected) {
+
+        alert(
+            "Please select an answer first."
+        );
+
+        return false;
+
+    }
+
+
+
+    /*
+       Question ID
+    */
+
+    const questionInput =
+        selected.name;
+
+
+    const questionId =
+        questionInput.replace(
+            "question_",
+            ""
+        );
+
+
+
+    /*
+       Save answer again.
+
+       This makes sure the latest
+       selected answer is stored.
+    */
+
+    selectedAnswers[selected.name] =
+        selected.value;
+
+
+
+    /*
+       Correct answer
+    */
+
+    const correctAnswer =
+        correctAnswers[questionId];
+
+
+
+    /*
+       Explanation
+    */
+
+    const explanation =
+        explanations[questionId];
+
+
+
+    /*
+       Feedback elements
+    */
+
+    const feedback =
+        page.querySelector(
+            ".answer-feedback"
+        );
+
+
+    const title =
+        page.querySelector(
+            ".feedback-title"
+        );
+
+
+    const userAnswer =
+        page.querySelector(
+            ".user-answer"
+        );
+
+
+    const correctAnswerElement =
+        page.querySelector(
+            ".correct-answer"
+        );
+
+
+    const mentorMessage =
+        page.querySelector(
+            ".mentor-message"
+        );
+
+
+
+    /* =================================
+       SELECTED ANSWER TEXT
+    ================================= */
+
+    const selectedLabel =
+        selected.parentElement
+        .querySelector("span");
+
+
+    const selectedText =
+        selectedLabel
+        ? selectedLabel.innerText
+        : selected.value;
+
+
+
+    /* =================================
+       CORRECT ANSWER TEXT
+    ================================= */
+
+    const correctInput =
+        page.querySelector(
+            'input[value="' +
+            correctAnswer +
+            '"]'
+        );
+
+
+    let correctText =
+        correctAnswer;
+
+
+    if (correctInput) {
+
+
+        const correctLabel =
+            correctInput.parentElement
+            .querySelector("span");
+
+
+        if (correctLabel) {
+
+            correctText =
+                correctLabel.innerText;
+
+        }
+
+
+    }
+
+
+
+    /* =================================
+       CHECK ANSWER
+    ================================= */
+
+    if (
+
+        selected.value.toUpperCase()
+        ===
+        correctAnswer.toUpperCase()
+
+    ) {
+
+
+        title.innerHTML =
+            "✅ Correct Answer!";
+
+
+        mentorMessage.innerHTML =
+            "Excellent! Your answer is correct. "
+            +
+            explanation;
+
+
+    }
+
+    else {
+
+
+        title.innerHTML =
+            "❌ Incorrect Answer";
+
+
+        mentorMessage.innerHTML =
+            explanation;
+
+
+    }
+
+
+
+    /* =================================
+       SHOW ANSWERS
+    ================================= */
+
+    userAnswer.innerText =
+        selectedText;
+
+
+    correctAnswerElement.innerText =
+        correctText;
+
+
+
+    /* =================================
+       SHOW FEEDBACK
+    ================================= */
+
+    feedback.style.display =
+        "block";
+
+
+
+    /* =================================
+       DISABLE OPTIONS
+    ================================= */
+
+    const options =
+        page.querySelectorAll(
+            'input[type="radio"]'
+        );
+
+
+    options.forEach(function(option) {
+
+        option.disabled = true;
+
+    });
+
+
+
+    return true;
+
+}
+
+
+
+/* =========================================
+   NEXT BUTTON
+========================================= */
+
+nextButtons.forEach(
+    function(button) {
+
+
+        button.addEventListener(
+            "click",
+            function() {
+
+
+                const page =
+                    pages[currentQuestion];
+
+
+                const feedback =
+                    page.querySelector(
+                        ".answer-feedback"
+                    );
+
+
+                /*
+                   First click:
+                   Check answer
+                */
+
+                if (
+                    feedback.style.display
+                    !==
+                    "block"
+                ) {
+
+
+                    const answered =
+                        checkCurrentAnswer();
+
+
+                    if (!answered) {
+
+                        return;
+
+                    }
+
+
+                    button.innerHTML =
+                        "Next Question →";
+
+
+                    return;
+
+                }
+
+
+
+                /*
+                   Second click:
+                   Move to next question
+                */
+
+                if (
+                    currentQuestion
+                    <
+                    pages.length - 1
+                ) {
+
+
+                    currentQuestion++;
+
+
+                    showQuestion(
+                        currentQuestion
+                    );
+
+
+                }
+
+
+            }
+        );
+
+
+    }
+);
+
+
+
+/* =========================================
+   PREVIOUS BUTTON
+========================================= */
+
+previousButtons.forEach(
+    function(button) {
+
+
+        button.addEventListener(
+            "click",
+            function() {
+
+
+                if (
+                    currentQuestion > 0
+                ) {
+
+
+                    currentQuestion--;
+
+
+                    showQuestion(
+                        currentQuestion
+                    );
+
+
+                }
+
+
+            }
+        );
+
+
+    }
+);
+
+
+
+/* =========================================
+   INITIAL QUESTION
+========================================= */
+
+showQuestion(0);
+
+
+
+/* =========================================
+   TIMER
+========================================= */
+
+let totalSeconds =
+    10 * 60;
+
+
+let timerInterval =
+    setInterval(
+        function() {
+
+
+            if (
+                totalSeconds > 0
+            ) {
+
+
+                totalSeconds--;
+
+
+                const minutes =
+                    Math.floor(
+                        totalSeconds / 60
+                    );
+
+
+                const seconds =
+                    totalSeconds % 60;
+
+
+                const formattedSeconds =
+                    seconds
+                    .toString()
+                    .padStart(2, "0");
+
+
+                timerElement.innerHTML =
+                    "⏱ "
+                    +
+                    minutes
+                    +
+                    ":"
+                    +
+                    formattedSeconds;
+
+
+            }
+
+
+            /*
+               Time finished
+            */
+
+            if (
+                totalSeconds === 0
+            ) {
+
+
+                clearInterval(
+                    timerInterval
+                );
+
+
+            }
+
+
+        },
+        1000
+    );
+
+
+
+/* =========================================
+   FINAL SUBMISSION
+========================================= */
+
+quizForm.addEventListener(
+    "submit",
+    function(event) {
+
+
+        /*
+           Stop timer
+        */
+
+        clearInterval(
+            timerInterval
+        );
+
+
+
+        /*
+           IMPORTANT FIX
+
+           Radio buttons were disabled after
+           showing feedback.
+
+           Disabled inputs are NOT submitted
+           by the browser.
+
+           Therefore, enable them before
+           submitting the form.
+        */
+
+        document.querySelectorAll(
+            '#quizForm input[type="radio"]'
+        ).forEach(function(radio) {
+
+            radio.disabled = false;
+
+        });
+
+
+
+        /*
+           Save all answers into JSON
+        */
+
+        answersJsonInput.value =
+            JSON.stringify(
+                selectedAnswers
+            );
+
+
+
+        /*
+           Save time taken
+        */
+
+        timeTakenInput.value =
+            (10 * 60)
+            -
+            totalSeconds;
+
+
+
+        /*
+           Debug information
+        */
+
+        console.log(
+            "================================"
+        );
+
+
+        console.log(
+            "ALL ANSWERS:"
+        );
+
+
+        console.log(
+            selectedAnswers
+        );
+
+
+        console.log(
+            "ANSWERS JSON:"
+        );
+
+
+        console.log(
+            answersJsonInput.value
+        );
+
+
+        console.log(
+            "TIME TAKEN:"
+        );
+
+
+        console.log(
+            timeTakenInput.value
+        );
+
+
+        console.log(
+            "================================"
+        );
+
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>

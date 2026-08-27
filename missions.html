@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Missions | AI Adventure Learning Game</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/missions.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- ================= Sidebar ================= -->
+
+<aside class="sidebar">
+
+<div class="logo-section">
+
+<img src="{{ url_for('static', filename='images/logo.png') }}" class="logo">
+
+<h2>AI Adventure</h2>
+
+<p>Learning Game</p>
+
+</div>
+
+<nav class="menu">
+
+<a href="{{ url_for('dashboard') }}" class="menu-item">
+<i class="fas fa-house"></i>
+Dashboard
+</a>
+
+<a href="{{ url_for('quiz', level=level) }}" class="menu-item">
+<i class="fas fa-code"></i>
+Coding Quiz
+</a>
+
+<a href="{{ url_for('levels') }}" class="menu-item active">
+<i class="fas fa-map"></i>
+Levels
+</a>
+
+<a href="{{ url_for('leaderboard') }}" class="menu-item">
+<i class="fas fa-trophy"></i>
+Leaderboard
+</a>
+
+<a href="{{ url_for('profile') }}" class="menu-item">
+<i class="fas fa-user"></i>
+Profile
+</a>
+
+<a href="{{ url_for('achievement') }}" class="menu-item">
+<i class="fas fa-medal"></i>
+Achievements
+</a>
+
+<a href="{{ url_for('settings') }}" class="menu-item">
+<i class="fas fa-gear"></i>
+Settings
+</a>
+
+<a href="{{ url_for('logout') }}" class="menu-item logout">
+<i class="fas fa-right-from-bracket"></i>
+Logout
+</a>
+
+</nav>
+
+</aside>
+
+
+<!-- ================= Main ================= -->
+
+<div class="main-content">
+
+<div class="top-bar">
+
+<div>
+
+<h1>🗺 {{ topic|default("Level " ~ level) }} Missions</h1>
+
+<p>Select a mission to continue your adventure.</p>
+
+</div>
+
+<div class="xp-box">
+
+⭐ Total XP : {{ xp|default(0) }}
+
+</div>
+
+</div>
+
+
+<!-- Mission Cards -->
+
+<div class="mission-grid">
+
+
+<!-- ================= Mission 1 ================= -->
+
+<div class="mission-card">
+
+<div class="mission-icon">
+📖
+</div>
+
+<h2>Mission 1</h2>
+
+<p>Introduction</p>
+
+<span class="reward">
+⭐ 100 XP
+</span>
+
+
+<!-- Mission 1 is always unlocked -->
+
+<a href="{{ url_for(
+    'lesson',
+    level=level,
+    mission_number=1
+) }}"
+class="start-btn">
+
+Start Mission
+
+</a>
+
+</div>
+
+
+<!-- ================= Mission 2 ================= -->
+
+<div class="mission-card">
+
+<div class="mission-icon">
+⚡
+</div>
+
+<h2>Mission 2</h2>
+
+<p>Intermediate Concepts</p>
+
+<span class="reward">
+⭐ 120 XP
+</span>
+<a href="{{ url_for(
+    'lesson',
+    level=level,
+    mission_number=2
+) }}"
+class="start-btn">
+
+Start Mission
+
+</a>
+
+</div>
+
+
+<!-- ================= Mission 3 ================= -->
+
+<div class="mission-card">
+
+<div class="mission-icon">
+🏆
+</div>
+
+<h2>Mission 3</h2>
+
+<p>Final Challenge</p>
+
+<span class="reward">
+⭐ 150 XP
+</span>
+
+
+<a href="{{ url_for(
+    'lesson',
+    level=level,
+    mission_number=3
+) }}"
+class="start-btn">
+
+Start Mission
+
+</a>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

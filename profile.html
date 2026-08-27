@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profile | AI Adventure Learning Game</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/profile.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+
+<body>
+
+<div class="overlay">
+
+    <!-- =========================
+            SIDEBAR
+    ========================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo-section">
+
+            <img src="{{ url_for('static', filename='images/logo.png') }}"
+                 class="logo">
+
+            <h2>AI Adventure</h2>
+
+            <p>Learning Game</p>
+
+        </div>
+
+
+        <nav class="menu">
+
+            <a href="{{ url_for('dashboard') }}" class="menu-item">
+                <i class="fas fa-house"></i>
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('quiz', level=1) }}" class="menu-item">
+                <i class="fas fa-code"></i>
+                Coding Quiz
+            </a>
+
+            <a href="{{ url_for('levels') }}" class="menu-item">
+                <i class="fas fa-map"></i>
+                Levels
+            </a>
+
+            <a href="{{ url_for('leaderboard') }}" class="menu-item">
+                <i class="fas fa-trophy"></i>
+                Leaderboard
+            </a>
+
+            <a href="{{ url_for('profile') }}" class="menu-item active">
+                <i class="fas fa-user"></i>
+                Profile
+            </a>
+
+            <a href="{{ url_for('achievement') }}" class="menu-item">
+                <i class="fas fa-medal"></i>
+                Achievements
+            </a>
+
+            <a href="{{ url_for('settings') }}" class="menu-item">
+                <i class="fas fa-gear"></i>
+                Settings
+            </a>
+
+            <a href="{{ url_for('logout') }}" class="menu-item logout">
+                <i class="fas fa-right-from-bracket"></i>
+                Logout
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- =========================
+          MAIN CONTENT
+    ========================= -->
+
+    <div class="main-content">
+
+
+        <!-- TOP BAR -->
+
+        <div class="top-bar">
+
+            <div>
+
+                <h1>👤 My Profile</h1>
+
+                <p>
+                    View and manage your adventure journey.
+                </p>
+
+            </div>
+
+
+            <div class="xp-box">
+
+                ⭐ XP :
+                {{ progress.total_xp if progress and progress.total_xp is defined else 0 }}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             PROFILE CARD
+        ========================= -->
+
+        <div class="profile-card">
+
+
+            <div class="profile-photo-wrapper">
+
+    {% if user.profile_image %}
+        <img src="{{ url_for('static', filename='uploads/' + user.profile_image) }}"
+             class="profile-image"
+             id="profileImage"
+             alt="Profile Picture">
+    {% else %}
+        <img src="{{ url_for('static', filename='images/user.png') }}"
+             class="profile-image"
+             id="profileImage"
+             alt="Profile Picture">
+    {% endif %}
+
+</div>
+
+<form action="{{ url_for('upload_profile_image') }}"
+      method="POST"
+      enctype="multipart/form-data"
+      class="photo-upload-form">
+
+   
+
+    <input type="file"
+           id="profilePhotoInput"
+           name="profile_image"
+           accept="image/png,image/jpeg,image/jpg"
+           hidden>
+
+    <button type="submit"
+            class="upload-photo-btn">
+
+        <i class="fas fa-upload"></i>
+        Save Photo
+
+    </button>
+
+</form>
+
+
+
+                 <div class="profile-photo-actions">
+
+    <button type="button"
+            class="photo-btn"
+            onclick="document.getElementById('profilePhotoInput').click()">
+
+        <i class="fas fa-camera"></i>
+        Change Photo
+
+    </button>
+
+    <input type="file"
+           id="profilePhotoInput"
+           accept="image/*"
+           style="display:none;">
+
+</div>
+
+            
+
+
+            <!-- REAL USER NAME -->
+
+            <h2>
+                {{ user.fullname }}
+            </h2>
+
+
+            <!-- REAL LEVEL -->
+
+            <p class="role">
+
+                Level
+                {{ progress.current_level if progress else 1 }}
+                Explorer
+
+            </p>
+
+
+
+            <!-- PROFILE INFORMATION -->
+
+            <div class="profile-info">
+
+
+                <div class="info-box">
+
+                    <h3>Email</h3>
+
+                    <p>
+                        {{ user.email }}
+                    </p>
+
+                </div>
+
+
+
+                <div class="info-box">
+
+                    <h3>Username</h3>
+
+                    <p>
+                        {{ user.username }}
+                    </p>
+
+                </div>
+
+
+
+                <div class="info-box">
+
+                    <h3>Current Rank</h3>
+
+                    <p>
+                        Coming from Leaderboard
+                    </p>
+
+                </div>
+
+
+
+                <div class="info-box">
+
+                    <h3>Joined</h3>
+
+                    <p>
+                        {{ user.created_at }}
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+
+        </div>
+
+
+        <!-- =========================
+     ADVENTURE SNAPSHOT
+========================= -->
+
+<section class="adventure-section">
+
+    <div class="section-heading">
+        <div>
+            <span class="section-tag">YOUR JOURNEY</span>
+            <h2>⚔ Adventure Snapshot</h2>
+            <p>Your current learning journey at a glance.</p>
+        </div>
+    </div>
+
+    <div class="snapshot-grid">
+
+        <div class="snapshot-card">
+            <div class="snapshot-icon">
+                <i class="fas fa-star"></i>
+            </div>
+
+            <div>
+                <span>Experience</span>
+                <strong>
+                    {{ progress.total_xp
+                       if progress and progress.total_xp is defined
+                       else 0 }}
+                </strong>
+                <small>XP Earned</small>
+            </div>
+        </div>
+
+
+        <div class="snapshot-card">
+            <div class="snapshot-icon">
+                <i class="fas fa-map"></i>
+            </div>
+
+            <div>
+                <span>Adventure</span>
+                <strong>
+                    {{ progress.current_level if progress else 1 }}
+                </strong>
+                <small>Current Level</small>
+            </div>
+        </div>
+
+
+        <div class="snapshot-card">
+            <div class="snapshot-icon">
+                <i class="fas fa-code"></i>
+            </div>
+
+            <div>
+                <span>Practice</span>
+                <strong>
+                    {{ progress.question_solved if progress else 0 }}
+                </strong>
+                <small>Questions Solved</small>
+            </div>
+        </div>
+
+
+        <div class="snapshot-card">
+            <div class="snapshot-icon">
+                <i class="fas fa-fire"></i>
+            </div>
+
+            <div>
+                <span>Consistency</span>
+                <strong>
+                    {{ progress.current_streak if progress else 0 }}
+                </strong>
+                <small>Day Streak</small>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- LEARNING JOURNEY -->
+
+    <div class="journey-card">
+
+        <div class="journey-top">
+
+            <div>
+                <span class="section-tag">PROGRESS</span>
+                <h3>🚀 Learning Journey</h3>
+            </div>
+
+            <strong>
+                {{ progress.overall_progress if progress else 0 }}%
+            </strong>
+
+        </div>
+
+
+        <div class="journey-bar">
+
+            <div class="journey-fill"
+                 style="width: {{ progress.overall_progress if progress else 0 }}%;">
+            </div>
+
+        </div>
+
+
+        <div class="journey-bottom">
+
+            <span>
+                Level {{ progress.current_level if progress else 1 }}
+            </span>
+
+            <span>
+                Keep exploring and learning!
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+<div class="action-buttons">
+
+    <button class="btn-primary"
+            type="button"
+            onclick="openModal('editModal')">
+
+        <i class="fas fa-user-pen"></i>
+        Edit Profile
+
+    </button>
+
+
+    <button class="btn-secondary"
+            type="button"
+            onclick="openModal('passwordModal')">
+
+        <i class="fas fa-lock"></i>
+        Change Password
+
+    </button>
+
+</div>
+
+<!-- =========================
+     EDIT PROFILE MODAL
+========================= -->
+
+<div class="modal" id="editModal">
+
+    <div class="modal-box">
+
+        <button class="close-modal"
+                onclick="closeModal('editModal')">
+            &times;
+        </button>
+
+        <div class="modal-icon">
+            <i class="fas fa-user-pen"></i>
+        </div>
+
+        <h2>Edit Profile</h2>
+
+        <p class="modal-subtitle">
+            Update your adventure profile.
+        </p>
+
+
+        <form method="POST"
+              action="{{ url_for('edit_profile') }}">
+
+            <label>Full Name</label>
+
+            <input type="text"
+                   name="fullname"
+                   value="{{ user.fullname }}"
+                   required>
+
+
+            <label>Username</label>
+
+            <input type="text"
+                   name="username"
+                   value="{{ user.username }}"
+                   required>
+
+
+            <label>Email</label>
+
+            <input type="email"
+                   name="email"
+                   value="{{ user.email }}"
+                   required>
+
+
+            <button type="submit"
+                    class="modal-submit">
+
+                <i class="fas fa-save"></i>
+                Save Changes
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- =========================
+     CHANGE PASSWORD MODAL
+========================= -->
+
+<div class="modal" id="passwordModal">
+
+    <div class="modal-box">
+
+        <button class="close-modal"
+                onclick="closeModal('passwordModal')">
+            &times;
+        </button>
+
+        <div class="modal-icon">
+            <i class="fas fa-lock"></i>
+        </div>
+
+        <h2>Change Password</h2>
+
+        <p class="modal-subtitle">
+            Keep your account secure.
+        </p>
+
+
+        <form method="POST"
+              action="{{ url_for('change_password') }}">
+
+            <label>Current Password</label>
+
+            <input type="password"
+                   name="current_password"
+                   required>
+
+
+            <label>New Password</label>
+
+            <input type="password"
+                   name="new_password"
+                   required>
+
+
+            <label>Confirm New Password</label>
+
+            <input type="password"
+                   name="confirm_password"
+                   required>
+
+
+            <button type="submit"
+                    class="modal-submit">
+
+                <i class="fas fa-shield-halved"></i>
+                Update Password
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+        <!-- =========================
+            FOOTER
+        ========================= -->
+
+        <footer class="footer">
+
+            <p>
+
+                ©️ 2026 AI Adventure Learning Game |
+
+                Keep Learning • Keep Exploring 🚀
+
+            </p>
+
+        </footer>
+
+
+    </div>
+
+</div>
+
+<script>
+
+function openModal(id) {
+
+    document.getElementById(id).classList.add("show");
+
+}
+
+
+function closeModal(id) {
+
+    document.getElementById(id).classList.remove("show");
+
+}
+
+
+window.addEventListener("click", function(event) {
+
+    if (event.target.classList.contains("modal")) {
+
+        event.target.classList.remove("show");
+
+    }
+
+});
+
+</script>
+
+<script>
+
+const profilePhotoInput =
+    document.getElementById("profilePhotoInput");
+
+const profileImage =
+    document.getElementById("profileImage");
+
+
+profilePhotoInput.addEventListener("change", function() {
+
+    const file = this.files[0];
+
+    if (!file) {
+        return;
+    }
+
+    if (!file.type.startsWith("image/")) {
+
+        alert("Please select an image file.");
+
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+
+        profileImage.src =
+            event.target.result;
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | AI Adventure Learning Game</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/register.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="overlay">
+
+    <!-- LEFT PANEL -->
+
+    <div class="left-panel">
+
+        <img src="{{ url_for('static', filename='images/logo.png') }}"
+        class="logo">
+
+        <h1>
+
+            AI Adventure <br>
+
+            Learning Game
+
+        </h1>
+
+        <p class="tagline">
+
+            Learn • Play • Explore
+
+        </p>
+
+        <p class="description">
+
+            Create your hero account and begin your magical learning adventure.
+            Unlock fantasy worlds, complete quests, and earn exciting rewards.
+
+        </p>
+
+        <div class="features">
+
+            <div class="feature">
+
+                <i class="fa-solid fa-robot"></i>
+
+                <span>AI Powered Stories</span>
+
+            </div>
+
+            <div class="feature">
+
+                <i class="fa-solid fa-book-open"></i>
+
+                <span>Interactive Learning</span>
+
+            </div>
+
+            <div class="feature">
+
+                <i class="fa-solid fa-trophy"></i>
+
+                <span>XP • Coins • Rewards</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT PANEL -->
+
+    <div class="right-panel">
+
+        <div class="register-card">
+
+            <img src="{{ url_for('static', filename='images/logo.png') }}"
+            class="card-logo">
+
+            <h2>Create Account</h2>
+
+            <p>Join the adventure and start learning today.</p>
+
+            <form action="{{ url_for('register') }}" method="POST">
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <input
+                    type="text"
+                    name="fullname"
+                    placeholder="Full Name"
+                    required>
+
+                </div>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    <input
+                    type="email"
+                    name="email"
+                    placeholder="Email Address"
+                    required>
+
+                </div>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-user-astronaut"></i>
+
+                    <input
+                    type="text"
+                    name="username"
+                    placeholder="Hero Name"
+                    required>
+
+                </div>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Create Password"
+                    required>
+
+                    <i class="fa-solid fa-eye"
+                    id="togglePassword"></i>
+
+                </div>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirm_password"
+                    placeholder="Confirm Password"
+                    required>
+
+                    <i class="fa-solid fa-eye"
+                    id="toggleConfirmPassword"></i>
+
+                </div>
+
+                <button
+                type="submit"
+                class="register-btn">
+
+                    Create Account
+
+                </button>
+
+            </form>
+
+            <div class="login-link">
+
+                <p>Already have an account?</p>
+
+                <a href="{{ url_for('login') }}">
+
+                    Login
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/register.js') }}"></script>
+
+
+// Password
+<script>
+const togglePassword = document.getElementById("togglePassword");
+const password = document.getElementById("password");
+
+togglePassword.addEventListener("click", function () {
+
+    if (password.type === "password") {
+
+        password.type = "text";
+        this.classList.replace("fa-eye", "fa-eye  -slash");
+
+    } else {
+
+        password.type = "password";
+        this.classList.replace("fa-eye-slash", "fa-eye");
+
+    }
+
+});
+
+//Confirm Password
+
+const toggleConfirmPassword = document.getElementById("toggleConfirmPassword");
+const confirmPassword = document.getElementById("confirmPassword");
+
+toggleConfirmPassword.addEventListener("click", function () {
+
+    if (confirmPassword.type === "password") {
+
+        confirmPassword.type = "text";
+        this.classList.replace("fa-eye", "fa-eye-slash");
+
+    } else {
+
+        confirmPassword.type = "password";
+        this.classList.replace("fa-eye-slash", "fa-eye");
+
+    }
+
+});
+</script>
+</body>
+
+</html>
+

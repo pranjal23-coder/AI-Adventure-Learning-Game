@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Achievements | AI Adventure Learning Game</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/achievement.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo-section">
+
+            <img src="{{ url_for('static', filename='images/logo.png') }}"
+                 class="logo">
+
+            <h2>AI Adventure</h2>
+
+            <p>Learning Game</p>
+
+        </div>
+
+
+        <nav class="menu">
+
+            <a href="{{ url_for('dashboard') }}" class="menu-item">
+                <i class="fas fa-house"></i>
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('quiz', level=1) }}" class="menu-item">
+                <i class="fas fa-code"></i>
+                Coding Quiz
+            </a>
+
+            <a href="{{ url_for('levels') }}" class="menu-item">
+                <i class="fas fa-map"></i>
+                Levels
+            </a>
+
+            <a href="{{ url_for('leaderboard') }}" class="menu-item">
+                <i class="fas fa-trophy"></i>
+                Leaderboard
+            </a>
+
+            <a href="{{ url_for('profile') }}" class="menu-item">
+                <i class="fas fa-user"></i>
+                Profile
+            </a>
+
+            <a href="{{ url_for('achievement') }}" class="menu-item active">
+                <i class="fas fa-medal"></i>
+                Achievements
+            </a>
+
+            <a href="{{ url_for('settings') }}" class="menu-item">
+                <i class="fas fa-gear"></i>
+                Settings
+            </a>
+
+            <a href="{{ url_for('logout') }}" class="menu-item logout">
+                <i class="fas fa-right-from-bracket"></i>
+                Logout
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <div class="main-content">
+
+
+        <!-- TOP BAR -->
+
+        <div class="top-bar">
+
+            <div>
+
+                <h1>🏅 Achievements</h1>
+
+                <p>
+                    Track your coding journey and unlock badges.
+                </p>
+
+            </div>
+
+
+            <!-- REAL XP -->
+
+            <div class="xp-box">
+
+                ⭐ XP :
+                {{ achievement.total_xp }}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             STAT CARDS
+        ========================= -->
+
+        <div class="stats-grid">
+
+
+            <!-- BADGES -->
+
+            <div class="stat-card">
+
+                <i class="fas fa-medal"></i>
+
+                <h3>
+                    {{ achievement.badges }}
+                </h3>
+
+                <p>
+                    Current Badge
+                </p>
+
+            </div>
+
+
+
+            <!-- LEVEL -->
+
+            <div class="stat-card">
+
+                <i class="fas fa-lock-open"></i>
+
+                <h3>
+                    {{ progress.current_level if progress else 1 }}
+                </h3>
+
+                <p>
+                    Current Level
+                </p>
+
+            </div>
+
+
+
+            <!-- STREAK -->
+
+            <div class="stat-card">
+
+                <i class="fas fa-fire"></i>
+
+                <h3>
+                    {{ progress.current_streak if progress else 0 }}
+                </h3>
+
+                <p>
+                    Learning Streak
+                </p>
+
+            </div>
+
+
+
+            <!-- RANK -->
+
+            <div class="stat-card">
+
+                <i class="fas fa-trophy"></i>
+
+                <h3>
+                    #{{ global_rank }}
+                </h3>
+
+                <p>
+                    Global Rank
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =========================
+             ACHIEVEMENT PROGRESS
+        ========================= -->
+
+        <div class="progress-card">
+
+            <h2>
+                📈 Achievement Progress
+            </h2>
+
+
+            {% set achievement_progress =
+                (achievement.total_xp / 1000 * 100)
+                if achievement.total_xp < 1000
+                else 100
+            %}
+
+
+            <div class="progress-bar">
+
+                <div class="progress-fill"
+                     style="width: {{ achievement_progress }}%;">
+                </div>
+
+            </div>
+
+
+            <p>
+                {{ achievement_progress|round(0) }}%
+                Achievement Progress
+            </p>
+
+        </div>
+
+
+
+        <!-- =========================
+             CURRENT ACHIEVEMENT
+        ========================= -->
+
+        <div class="badges-grid">
+
+            <h2>
+                🏆 Current Achievement
+            </h2>
+
+
+            <div class="badge-grid">
+
+
+                <div class="badge-card unlocked">
+
+                    <div class="badge-icon">
+                        🏅
+                    </div>
+
+
+                    <h3>
+                        {{ achievement.unlocked_title }}
+                    </h3>
+
+
+                    <p>
+                        Your current achievement title
+                    </p>
+
+
+                    <span class="badge-status">
+                        Unlocked
+                    </span>
+
+                </div>
+
+
+
+                <div class="badge-card unlocked">
+
+                    <div class="badge-icon">
+                        ⭐
+                    </div>
+
+
+                    <h3>
+                        {{ achievement.stars }} Stars
+                    </h3>
+
+
+                    <p>
+                        Stars earned through learning
+                    </p>
+
+
+                    <span class="badge-status">
+                        Unlocked
+                    </span>
+
+                </div>
+
+
+
+                <div class="badge-card unlocked">
+
+                    <div class="badge-icon">
+                        🎯
+                    </div>
+
+
+                    <h3>
+                        {{ achievement.total_xp }} XP
+                    </h3>
+
+
+                    <p>
+                        Total experience earned
+                    </p>
+
+
+                    <span class="badge-status">
+                        Active
+                    </span>
+
+                </div>
+
+
+
+                <div class="badge-card unlocked">
+
+                    <div class="badge-icon">
+                        🎓
+                    </div>
+
+
+                    <h3>
+                        Certificates
+                    </h3>
+
+
+                    <p>
+                        {{ achievement.certificates }}
+                        certificates earned
+                    </p>
+
+
+                    <span class="badge-status">
+                        Active
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             LOCKED ACHIEVEMENTS
+        ========================= -->
+
+        <div class="achievement-section">
+
+            <h2>
+                🔒 Future Achievements
+            </h2>
+
+
+            <div class="achievement-grid">
+
+
+                <div class="achievement-card locked">
+
+                    <i class="fas fa-lock"></i>
+
+                    <h3>
+                        Coding Hero
+                    </h3>
+
+                    <p>
+                        Reach 500 XP to unlock.
+                    </p>
+
+                </div>
+
+
+
+                <div class="achievement-card locked">
+
+                    <i class="fas fa-lock"></i>
+
+                    <h3>
+                        Code Master
+                    </h3>
+
+                    <p>
+                        Reach 1000 XP to unlock.
+                    </p>
+
+                </div>
+
+
+
+                <div class="achievement-card locked">
+
+                    <i class="fas fa-lock"></i>
+
+                    <h3>
+                        Level Champion
+                    </h3>
+
+                    <p>
+                        Complete all 6 levels.
+                    </p>
+
+                </div>
+
+
+
+                <div class="achievement-card locked">
+
+                    <i class="fas fa-lock"></i>
+
+                    <h3>
+                        Quiz Master
+                    </h3>
+
+                    <p>
+                        Maintain high quiz accuracy.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             NEXT GOAL
+        ========================= -->
+
+        <div class="next-goal">
+
+            <h2>
+                🎯 Next Achievement
+            </h2>
+
+
+            <div class="goal-card">
+
+
+                {% if achievement.total_xp < 100 %}
+
+                    <h3>
+                        Code Explorer
+                    </h3>
+
+                    <p>
+                        Reach 100 XP to unlock Code Explorer.
+                    </p>
+
+                    {% set next_xp = 100 %}
+
+                {% elif achievement.total_xp < 500 %}
+
+                    <h3>
+                        Coding Hero
+                    </h3>
+
+                    <p>
+                        Reach 500 XP to unlock Coding Hero.
+                    </p>
+
+                    {% set next_xp = 500 %}
+
+                {% elif achievement.total_xp < 1000 %}
+
+                    <h3>
+                        Code Master
+                    </h3>
+
+                    <p>
+                        Reach 1000 XP to unlock Code Master.
+                    </p>
+
+                    {% set next_xp = 1000 %}
+
+                {% else %}
+
+                    <h3>
+                        🏆 All Major XP Achievements Unlocked!
+                    </h3>
+
+                    <p>
+                        Keep learning and completing levels.
+                    </p>
+
+                    {% set next_xp = 1000 %}
+
+                {% endif %}
+
+
+                {% set goal_progress =
+                    (achievement.total_xp / next_xp * 100)
+                    if achievement.total_xp < next_xp
+                    else 100
+                %}
+
+
+                <div class="progress-bar">
+
+                    <div class="progress-fill"
+                         style="width: {{ goal_progress }}%;">
+                    </div>
+
+                </div>
+
+
+                <p>
+                    {{ goal_progress|round(0) }}% Completed
+                </p>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             RECENT ACHIEVEMENTS
+        ========================= -->
+
+        <div class="recent-achievements">
+
+            <h2>
+                🏆 Achievement Summary
+            </h2>
+
+
+            <ul>
+
+                <li>
+                    🏅 Current Badge:
+                    {{ achievement.badges }}
+                </li>
+
+                <li>
+                    ⭐ Stars:
+                    {{ achievement.stars }}
+                </li>
+
+                <li>
+                    🎯 Total XP:
+                    {{ achievement.total_xp }}
+                </li>
+
+                <li>
+                    🎓 Certificates:
+                    {{ achievement.certificates }}
+                </li>
+
+                <li>
+                    👑 Title:
+                    {{ achievement.unlocked_title }}
+                </li>
+
+            </ul>
+
+        </div>
+
+
+
+        <!-- FOOTER -->
+
+        <footer class="footer">
+
+            <p>
+                ©️ 2026 AI Adventure Learning Game |
+                Keep Learning • Keep Exploring 🚀
+            </p>
+
+        </footer>
+
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

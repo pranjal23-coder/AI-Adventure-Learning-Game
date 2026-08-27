@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard | AI Adventure Learning Game</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/leaderboard.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="overlay">
+
+<!-- ===========================
+        SIDEBAR
+=========================== -->
+
+<aside class="sidebar">
+
+    <div class="logo-section">
+
+        <img src="{{ url_for('static', filename='images/logo.png') }}"
+             class="logo">
+
+        <h2>AI Adventure</h2>
+
+        <p>Learning Game</p>
+
+    </div>
+
+    <nav class="menu">
+
+        <a href="{{ url_for('dashboard') }}" class="menu-item active">
+            <i class="fas fa-house"></i>
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('quiz', level=1) }}" class="menu-item">
+            <i class="fas fa-code"></i>
+            Coding Quiz
+        </a>
+
+        <a href="{{ url_for('levels') }}" class="menu-item">
+            <i class="fas fa-map"></i>
+            Levels
+        </a>
+
+        <a href="{{ url_for('leaderboard') }}" class="menu-item">
+            <i class="fas fa-trophy"></i>
+            Leaderboard
+        </a>
+
+        <a href="{{ url_for('profile') }}" class="menu-item">
+            <i class="fas fa-user"></i>
+            Profile
+        </a>
+
+        <a href="{{ url_for('achievement') }}" class="menu-item">
+            <i class="fas fa-medal"></i>
+            Achievements
+        </a>
+
+        <a href="{{ url_for('settings') }}" class="menu-item">
+            <i class="fas fa-gear"></i>
+            Settings
+        </a>
+
+        <a href="{{ url_for('logout') }}" class="menu-item logout">
+            <i class="fas fa-right-from-bracket"></i>
+            Logout
+        </a>
+
+    </nav>
+
+</aside>
+
+<div class="container">
+
+    <!-- Header -->
+
+    <header class="header">
+
+        <h1><i class="fas fa-trophy"></i> Hall of Champions</h1>
+
+        <p>Compete with other adventurers and become the AI Champion.</p>
+
+    </header>
+
+    <!-- Top 3 Players -->
+
+     <section class="top-three">
+
+    {% for player in leaderboard[:3] %}
+
+    <div class="winner-card
+        {% if loop.index == 1 %}
+            gold
+        {% elif loop.index == 2 %}
+            silver
+        {% else %}
+            bronze
+        {% endif %}">
+
+        <div class="medal">
+            {% if loop.index == 1 %}
+                🥇
+            {% elif loop.index == 2 %}
+                🥈
+            {% else %}
+                🥉
+            {% endif %}
+        </div>
+
+        {% if player.profile_image %}
+    <img src="{{ url_for('static', filename='uploads/' + player.profile_image) }}"
+         class="leaderboard-avatar"
+         alt="Profile">
+{% else %}
+    <img src="{{ url_for('static', filename='images/user.png') }}"
+         class="leaderboard-avatar"
+         alt="Profile">
+{% endif %}
+
+        <h2>
+            {{ player.username }}
+        </h2>
+
+        <p>
+            XP : {{ player.total_score }}
+        </p>
+
+        <span>
+            Rank #{{ loop.index }}
+        </span>
+
+    </div>
+
+    {% endfor %}
+
+</section>
+
+    <!-- Leaderboard Table -->
+
+     <section class="leaderboard-table">
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Player</th>
+                <th>XP</th>
+                <th>Rank Position</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        {% if leaderboard %}
+
+            {% for player in leaderboard %}
+
+            <tr {% if player.user_id == session['user_id'] %}class="you"{% endif %}>
+
+                <td>
+                    {{ loop.index }}
+                </td>
+
+                <td>
+                    {% if player.user_id == session['user_id'] %}
+                        You
+                    {% else %}
+                        {{ player.username }}
+                    {% endif %}
+                </td>
+
+                <td>
+                    {{ player.total_score }}
+                </td>
+
+                <td>
+                    #{{ loop.index }}
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        {% else %}
+
+            <tr>
+                <td colspan="4">
+                    No leaderboard data available yet.
+                </td>
+            </tr>
+
+        {% endif %}
+
+        </tbody>
+
+    </table>
+
+</section>
+    <!-- Your Rank -->
+
+     <section class="your-rank">
+
+    <h2>Your Adventure</h2>
+
+    {% set my_rank = namespace(position=0, score=0) %}
+
+    {% for player in leaderboard %}
+
+        {% if player.user_id == session['user_id'] %}
+
+            {% set my_rank.position = loop.index %}
+            {% set my_rank.score = player.total_score %}
+
+        {% endif %}
+
+    {% endfor %}
+
+    <div class="rank-box">
+
+        <div>
+            <h3>Current Rank</h3>
+            <p>#{{ my_rank.position }}</p>
+        </div>
+
+        <div>
+            <h3>Total XP</h3>
+            <p>{{ my_rank.score }} XP</p>
+        </div>
+
+        <div>
+            <h3>Accuracy</h3>
+            <p>Coming from Progress</p>
+        </div>
+
+        <div>
+            <h3>Current Level</h3>
+            <p>Coming from Progress</p>
+        </div>
+
+    </div>
+
+</section>
+
+</div>
+
+</body>
+
+</html>

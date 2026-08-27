@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | AI Adventure Learning Game</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css')}}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="overlay">
+
+<!-- ===========================
+        SIDEBAR
+=========================== -->
+
+<aside class="sidebar">
+
+    <div class="logo-section">
+
+        <img src="{{ url_for('static', filename='images/logo.png') }}"
+             class="logo">
+
+        <h2>AI Adventure</h2>
+
+        <p>Learning Game</p>
+
+    </div>
+
+    <nav class="menu">
+
+        <a href="{{ url_for('dashboard') }}" class="menu-item active">
+            <i class="fas fa-house"></i>
+            Dashboard
+        </a>
+
+    
+
+        <a href="{{ url_for('quiz', level=1) }}" class="menu-item">
+            <i class="fas fa-code"></i>
+            Coding Quiz
+        </a>
+
+        <a href="{{ url_for('levels') }}" class="menu-item">
+            <i class="fas fa-map"></i>
+            Levels
+        </a>
+
+        <a href="{{ url_for('leaderboard') }}" class="menu-item">
+            <i class="fas fa-trophy"></i>
+            Leaderboard
+        </a>
+
+        <a href="{{ url_for('profile') }}" class="menu-item">
+            <i class="fas fa-user"></i>
+            Profile
+        </a>
+
+        <a href="{{ url_for('achievement') }}" class="menu-item">
+            <i class="fas fa-medal"></i>
+            Achievements
+        </a>
+
+        <a href="{{ url_for('settings') }}" class="menu-item">
+            <i class="fas fa-gear"></i>
+            Settings
+        </a>
+
+        <a href="{{ url_for('logout') }}" class="menu-item logout">
+            <i class="fas fa-right-from-bracket"></i>
+            Logout
+        </a>
+
+    </nav>
+
+</aside>
+
+
+<!-- ===========================
+        MAIN CONTENT
+=========================== -->
+
+<div class="main-content">
+
+<!-- Top Bar -->
+
+<div class="top-bar">
+
+    <div class="user-info">
+
+        <h1>Welcome Back,
+            <span>{{ username }}</span> 👋
+        </h1>
+
+        <p>
+            Continue your coding adventure and
+            become an AI Master.
+        </p>
+
+    </div>
+
+    <div class="profile-box">
+
+        <img src="{{ url_for('static', filename='images/avatar.jpg') }}"
+             class="avatar">
+
+    </div>
+
+</div>
+
+<!-- ===========================
+        STATISTICS START HERE
+=========================== -->
+
+<div class="stats-grid">
+
+    <!-- Accuracy -->
+    <div class="card">
+        <div class="card-icon">
+            <i class="fa-solid fa-bullseye"></i>
+        </div>
+
+        <h3>Accuracy</h3>
+        <h2>{{ progress.accuracy|default(0, true)|round(1) }}%</h2>
+        <p>Overall Quiz Accuracy</p>
+    </div>
+
+    <!-- Questions Solved -->
+    <div class="card">
+        <div class="card-icon">
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+
+        <h3>Questions Solved</h3>
+        <h2>{{ progress.question_solved|default(0, true) }}</h2>
+        <p>Questions Completed</p>
+    </div>
+
+
+    <!-- Current Streak -->
+    <div class="card">
+        <div class="card-icon">
+            <i class="fa-solid fa-fire"></i>
+        </div>
+
+        <h3>Current Streak</h3>
+        <h2>{{ progress.current_streak|default(0, true) }} Days</h2>
+        <p>Keep Learning Daily</p>
+    </div>
+
+    <!-- Study Time -->
+    <div class="card">
+        <div class="card-icon">
+            <i class="fa-solid fa-clock"></i>
+        </div>
+
+        <h3>Study Time</h3>
+        <h2>{{ progress.study_time // 60 }} min</h2>
+        <p>Total Learning Time</p>
+    </div>
+
+    <!-- Current Rank -->
+    <div class="card">
+        <div class="card-icon">
+            <i class="fa-solid fa-crown"></i>
+        </div>
+
+        <h3>Current Rank</h3>
+        <h2>{{ progress.rank|default('Beginner', true) }}</h2>
+        <p>Next Rank : Code Master</p>
+    </div>
+
+</div>
+    <!-- Progress --><!-- ==============================
+     OVERALL PROGRESS
+    ================================ -->
+
+<!-- ==============================
+     OVERALL PROGRESS
+================================ -->
+
+<div class="overall-progress-card">
+
+    <div class="overall-progress-top">
+
+        <div class="progress-title">
+
+            <div class="progress-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+
+            <div>
+                <h2>Overall Progress</h2>
+                <p>Your adventure journey</p>
+
+                <span>
+                    {{ progress.overall_progress|default(0, true)|round(0) }}%
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="progress-percent">
+            {{ progress.overall_progress|default(0, true)|round(0) }}%
+        </div>
+
+    </div>
+
+    <div class="progress-track">
+
+        <div class="progress-fill"
+             style="width: {{ progress.overall_progress|default(0, true) }}%;">
+        </div>
+
+    </div>
+
+    <div class="progress-bottom">
+
+        <span>
+            <i class="fas fa-scroll"></i>
+            {{ progress.lessons_completed|default(0, true) }} / 18 Missions
+        </span>
+
+        <span>
+            Keep exploring! ✨
+        </span>
+
+    </div>
+
+</div>
+
+     <div class="bottom-grid">
+
+    <!-- =========================
+     AI RECOMMENDATION
+========================= -->
+
+<div class="ai-recommendation-section">
+
+    <div class="ai-recommendation-card">
+
+        <div class="ai-icon">
+            🤖
+        </div>
+
+        <div class="ai-content">
+
+            <span class="ai-label">AI RECOMMENDATION</span>
+            <h2>
+                {{recommendation}}
+            </h2>
+            <p>
+                Your Personalized learning recommendation based on your Current progress and quiz performance.
+            </p>
+          
+
+            <div class="ai-reason">
+                <i class="fas fa-lightbulb"></i>
+                <span>Personalized for your learning progress</span>
+            </div>
+
+        </div>
+
+        <a href="{{ url_for('quiz', level=1) }}" class="recommend-btn">
+            <i class="fas fa-code"></i>
+            Practice
+        </a>
+
+    </div>
+
+</div>
+
+<!-- ===========================
+        TODAY'S MISSION
+=========================== -->
+
+<div class="card mission-card">
+
+    <div class="card-header">
+
+        <i class="fa-solid fa-bullseye"></i>
+
+        <h3>Today's Mission</h3>
+
+    </div>
+
+    <ul class="mission-list">
+
+        <li>
+            <i class="fa-solid fa-circle-check"></i>
+            Complete HTML Forest
+        </li>
+
+        <li>
+            <i class="fa-solid fa-circle-check"></i>
+            Solve 10 Coding Questions
+        </li>
+
+        <li>
+            <i class="fa-solid fa-circle-check"></i>
+            Score Above 80%
+        </li>
+
+    </ul>
+
+</div>
+
+<!-- ===========================
+        CONTINUE LEARNING
+=========================== -->
+
+<div class="card continue-card">
+
+    <div class="card-header">
+
+        <i class="fa-solid fa-play"></i>
+
+        <h3>Continue Learning</h3>
+
+    </div>
+
+    <img src="{{ url_for('static', filename='images/background.jpg') }}"
+         class="level-image"
+         alt="HTML Forest">
+
+    <h2>HTML Forest</h2>
+
+    <p>Level 1 • Beginner</p>
+
+    <a href="{{ url_for('levels') }}" class="action-btn">
+
+        Continue Adventure
+
+    </a>
+
+</div>
+
+<!-- ===========================
+        RECENT ACHIEVEMENT
+=========================== -->
+
+<div class="card achievement-card">
+
+    <div class="card-header">
+
+        <i class="fa-solid fa-medal"></i>
+
+        <h3>Recent Achievement</h3>
+
+    </div>
+
+    <div class="achievement-box">
+
+        🏅
+
+        <div>
+
+            <h4>HTML Hero</h4>
+
+            <p>Completed HTML Forest</p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

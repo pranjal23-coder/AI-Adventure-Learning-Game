@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Lesson | AI Adventure Learning Game</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/lesson.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+
+<body>
+
+<div class="overlay">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo-section">
+
+            <img src="{{ url_for('static', filename='images/logo.png') }}"
+                 class="logo">
+
+            <h2>AI Adventure</h2>
+
+            <p>Learning Game</p>
+
+        </div>
+
+
+        <nav class="menu">
+
+            <a href="{{ url_for('dashboard') }}"
+               class="menu-item">
+
+                <i class="fas fa-house"></i>
+                Dashboard
+
+            </a>
+
+
+            <a href="{{ url_for('quiz', level=level) }}"
+               class="menu-item">
+
+                <i class="fas fa-code"></i>
+                Coding Quiz
+
+            </a>
+
+
+            <a href="{{ url_for('levels') }}"
+               class="menu-item active">
+
+                <i class="fas fa-map"></i>
+                Levels
+
+            </a>
+
+
+            <a href="{{ url_for('leaderboard') }}"
+               class="menu-item">
+
+                <i class="fas fa-trophy"></i>
+                Leaderboard
+
+            </a>
+
+
+            <a href="{{ url_for('achievement') }}"
+               class="menu-item">
+
+                <i class="fas fa-medal"></i>
+                Achievements
+
+            </a>
+
+
+            <a href="{{ url_for('profile') }}"
+               class="menu-item">
+
+                <i class="fas fa-user"></i>
+                Profile
+
+            </a>
+
+
+            <a href="{{ url_for('settings') }}"
+               class="menu-item">
+
+                <i class="fas fa-gear"></i>
+                Settings
+
+            </a>
+
+
+            <a href="{{ url_for('logout') }}"
+               class="menu-item logout">
+
+                <i class="fas fa-right-from-bracket"></i>
+                Logout
+
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             LESSON BANNER
+        ================================================== -->
+
+        <div class="lesson-banner">
+
+            <div>
+
+                <h1>
+                    📖 {{ lesson.lesson_title }}
+                </h1>
+
+                <p>
+                    Level {{ level }}
+                    •
+                    Mission {{ mission_number }}
+                </p>
+
+            </div>
+
+
+            <div class="xp-box">
+
+                ⭐ {{ lesson.xp_reward }} XP
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             AI GUIDE
+        ================================================== -->
+
+        <div class="guide-card">
+
+            <div class="guide-icon">
+                🤖
+            </div>
+
+            <div>
+
+                <h2>AI Mentor</h2>
+
+                <p>
+                    Read the lesson carefully before completing
+                    this mission.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             LESSON CARD
+        ================================================== -->
+
+        <div class="lesson-card">
+
+            <h2>
+                {{ lesson.lesson_title }}
+            </h2>
+
+
+            <p>
+
+                <strong>Topic:</strong>
+
+                {{ lesson.topic }}
+
+            </p>
+
+
+            <p>
+
+                <strong>Difficulty:</strong>
+
+                {{ lesson.difficulty }}
+
+            </p>
+
+
+            <p>
+
+                <strong>Estimated Time:</strong>
+
+                {{ lesson.estimated_time }} Minutes
+
+            </p>
+
+
+            <hr>
+
+
+            <div class="lesson-content">
+
+                <pre class="lesson-text">{{ lesson.lesson_content }}</pre>
+
+            </div>
+
+        </div>
+
+
+
+       
+       <!-- =================================================
+     ACTION BUTTONS
+================================================== -->
+
+<div class="lesson-buttons">
+
+    <a href="{{ url_for('missions', level=level) }}"
+       class="back-btn">
+
+        <i class="fas fa-arrow-left"></i>
+
+        Back to Missions
+
+    </a>
+
+
+    <a href="{{ url_for('quiz', level=level) }}"
+       class="start-btn">
+
+        <i class="fas fa-play"></i>
+
+        Start Quiz
+
+    </a>
+
+</div>
+
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
+
+        <footer class="footer">
+
+            <p>
+
+                ©️ 2026 AI Adventure Learning Game |
+
+                Keep Learning • Keep Exploring 🚀
+
+            </p>
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+
+
+</body>
+
+</html>

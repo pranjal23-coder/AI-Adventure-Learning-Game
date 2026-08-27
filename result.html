@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Quiz Result | AI Adventure Learning Game</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/result.css') }}">
+
+</head>
+
+
+<body>
+
+
+<div class="result-card">
+
+
+    <!-- TITLE -->
+
+    <h1>🎉 Quiz Completed!</h1>
+
+
+    <h2>Your Quiz Result</h2>
+
+
+    <!-- SCORE -->
+
+    <div class="result-item">
+
+        <p>
+            <strong>Correct Answers:</strong>
+        </p>
+
+        <span>
+            {{ correct }} / {{ total_questions }}
+        </span>
+
+    </div>
+
+
+    <!-- ACCURACY -->
+
+    <div class="result-item">
+
+        <p>
+            <strong>Accuracy:</strong>
+        </p>
+
+        <span>
+            {{ accuracy }}%
+        </span>
+
+    </div>
+
+
+    <!-- XP -->
+
+    <div class="result-item">
+
+        <p>
+            <strong>XP Earned:</strong>
+        </p>
+
+        <span>
+            ⭐ {{ xp }}
+        </span>
+
+    </div>
+
+
+    <!-- ================= PASS ================= -->
+
+    {% if accuracy >= 70 %}
+
+        <div class="success-message">
+
+            <h2>
+                ✅ Level Completed!
+            </h2>
+
+            <p>
+                Excellent work! You passed this quiz.
+            </p>
+
+        </div>
+
+
+        <a href="{{ url_for('missions', level=next_level) }}"
+           class="result-btn">
+
+            🚀 Next Level
+
+        </a>
+
+
+    {% else %}
+
+        <!-- ================= FAIL ================= -->
+
+        <div class="fail-message">
+
+            <h2>
+                ❌ Try Again
+            </h2>
+
+            <p>
+                You need at least 70% to complete this level.
+            </p>
+
+        </div>
+
+
+        <a href="{{ url_for('quiz', level=level) }}"
+           class="result-btn">
+
+            🔄 Retry Quiz
+
+        </a>
+
+
+    {% endif %}
+
+
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | AI Adventure Learning Game</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/login.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="overlay">
+
+    <!-- LEFT SIDE -->
+
+    <div class="left-panel">
+
+        <img src="{{ url_for('static', filename='images/logo.png') }}"
+        class="logo">
+
+        <h1>
+
+            AI Adventure <br>
+
+            Learning Game
+
+        </h1>
+
+        <p class="tagline">
+
+            Learn • Play • Explore
+
+        </p>
+
+        <p class="description">
+
+            Continue your magical learning journey.
+
+            Unlock fantasy worlds, solve AI quizzes,
+
+            collect XP and become a Master Explorer.
+
+        </p>
+
+        <div class="features">
+
+            <div class="feature">
+
+                <i class="fa-solid fa-robot"></i>
+
+                <span>AI Powered quizzes</span>
+
+            </div>
+
+            <div class="feature">
+
+                <i class="fa-solid fa-book-open"></i>
+
+                <span>Interactive Learning</span>
+
+            </div>
+
+            <div class="feature">
+
+                <i class="fa-solid fa-trophy"></i>
+
+                <span>XP • Coins • Rewards</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+
+    <div class="right-panel">
+
+        <div class="login-card">
+
+            <img src="{{ url_for('static', filename='images/logo.png') }}"
+            class="card-logo">
+
+            <h2>
+
+                Welcome Back!
+
+            </h2>
+
+            <p>
+
+                Continue your magical learning adventure.
+
+            </p>
+
+            {% if error %}
+            <div class ="error-box">
+                {{error}}
+            </div>
+            {% endif %}
+
+
+            <form action="{{ url_for('login') }}" method="POST">
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <input
+                    type="text"
+                    name="username"
+                    placeholder="Hero Name"
+                    required>
+
+                </div>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Magic Passphrase"
+                    required>
+
+                    <i class="fa-solid fa-eye"
+                    id="togglePassword"></i>
+
+                </div>
+
+                <div class="forgot">
+
+                    <a href="#">Forgot Password?</a>
+
+                </div>
+
+                <button
+                type="submit"
+                class="login-btn">
+
+                    Enter the Realm
+
+                </button>
+
+            </form>
+
+            <div class="register-link">
+
+                <p>
+
+                    Don't have an account?
+
+                </p>
+
+                <a href="{{ url_for('register') }}">
+
+                    Create Account
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
+<script>
+const togglePassword = document.getElementById("togglePassword");
+const password = document.getElementById("password");
+
+togglePassword.addEventListener("click", function () {
+
+    if (password.type === "password") {
+
+        password.type = "text";
+        this.classList.replace("fa-eye", "fa-eye-slash");
+
+    } else {
+
+        password.type = "password";
+        this.classList.replace("fa-eye-slash", "fa-eye");
+
+    }
+
+});
+
+//Confirm Password
+
+const toggleConfirmPassword = document.getElementById("toggleConfirmPassword");
+const confirmPassword = document.getElementById("confirmPassword");
+
+toggleConfirmPassword.addEventListener("click", function () {
+
+    if (confirmPassword.type === "password") {
+
+        confirmPassword.type = "text";
+        this.classList.replace("fa-eye", "fa-eye-slash");
+
+    } else {
+
+        confirmPassword.type = "password";
+        this.classList.replace("fa-eye-slash", "fa-eye");
+
+    }
+
+});
+</script>
+</body>
+
+</html>

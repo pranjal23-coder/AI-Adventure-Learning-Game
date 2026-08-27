@@ -1,0 +1,470 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+/*=========================================
+        BODY
+=========================================*/
+
+body{
+
+    min-height:100vh;
+
+    background:url("../images/background.jpg") no-repeat center center;
+
+    background-size:cover;
+
+    overflow:hidden;
+
+}
+
+/* Dark Overlay */
+
+.overlay{
+
+    width:100%;
+
+    height:100vh;
+
+    background:rgba(0,0,0,.50);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:70px;
+
+}
+
+/*=========================================
+        LEFT PANEL
+=========================================*/
+
+.left-panel{
+
+    width:55%;
+
+    color:white;
+
+}
+
+.logo{
+
+    width:120px;
+
+    margin-bottom:25px;
+
+    animation:float 3s ease-in-out infinite;
+
+}
+
+.left-panel h1{
+
+    font-family:'Cinzel',serif;
+
+    font-size:58px;
+
+    color:#FFD54A;
+
+    line-height:70px;
+
+    text-shadow:0 0 15px rgba(255,210,80,.35);
+
+}
+
+.tagline{
+
+    margin-top:18px;
+
+    font-size:22px;
+
+    letter-spacing:2px;
+
+    color:#ffffff;
+
+}
+
+.description{
+
+    margin-top:25px;
+
+    max-width:600px;
+
+    line-height:32px;
+
+    font-size:18px;
+
+    color:#dddddd;
+
+}
+
+/*=========================================
+        FEATURES
+=========================================*/
+
+.features{
+
+    margin-top:45px;
+
+}
+
+.feature{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    margin-bottom:22px;
+
+    font-size:18px;
+
+}
+
+.feature i{
+
+    color:#FFD54A;
+
+    font-size:24px;
+
+}
+
+/*=========================================
+        RIGHT PANEL
+=========================================*/
+
+.right-panel{
+
+    width:45%;
+
+    display:flex;
+
+    justify-content:center;
+
+}
+
+.welcome-card{
+
+    width:420px;
+
+    background:rgba(15,22,50,.92);
+
+    border-radius:25px;
+
+    padding:45px;
+
+    text-align:center;
+
+    backdrop-filter:blur(12px);
+
+    box-shadow:0 0 30px rgba(90,120,255,.35);
+
+}
+
+.card-logo{
+
+    width:90px;
+
+    margin-bottom:20px;
+
+}
+
+.welcome-card h2{
+
+    color:#FFD54A;
+
+    font-family:'Cinzel',serif;
+
+    margin-bottom:15px;
+
+    font-size:34px;
+
+}
+
+.welcome-card p{
+
+    color:#dddddd;
+
+    line-height:28px;
+
+    margin-bottom:35px;
+
+}
+
+/*=========================================
+        BUTTONS
+=========================================*/
+
+.btn{
+
+    display:block;
+
+    width:100%;
+
+    padding:15px;
+
+    margin-bottom:18px;
+
+    text-decoration:none;
+
+    text-align:center;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    border-radius:50px;
+
+    transition:.35s ease;
+
+}
+
+/* Login Button */
+
+.login-btn{
+
+    background:linear-gradient(90deg,#5D5FEF,#8E44FF);
+
+    color:#ffffff;
+
+    box-shadow:0 0 20px rgba(120,100,255,.45);
+
+}
+
+.login-btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 0 30px rgba(120,100,255,.70);
+
+}
+
+/* Register Button */
+
+.register-btn{
+
+    background:transparent;
+
+    border:2px solid #FFD54A;
+
+    color:#FFD54A;
+
+}
+
+.register-btn:hover{
+
+    background:#FFD54A;
+
+    color:#111;
+
+    transform:translateY(-3px);
+
+}
+
+/*=========================================
+        FLOATING LOGO
+=========================================*/
+
+@keyframes float{
+
+0%{
+    transform:translateY(0px);
+}
+
+50%{
+    transform:translateY(-10px);
+}
+
+100%{
+    transform:translateY(0px);
+}
+
+}
+
+/*=========================================
+        CARD ANIMATION
+=========================================*/
+
+.welcome-card{
+
+    animation:fadeUp 1s ease;
+
+}
+
+@keyframes fadeUp{
+
+from{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+}
+
+to{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+}
+
+/*=========================================
+        RESPONSIVE TABLET
+=========================================*/
+
+@media(max-width:992px){
+
+.overlay{
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    padding:40px;
+
+    text-align:center;
+
+}
+
+.left-panel{
+
+    width:100%;
+
+    margin-bottom:40px;
+
+}
+
+.right-panel{
+
+    width:100%;
+
+}
+
+.features{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+}
+
+}
+
+/*=========================================
+        MOBILE
+=========================================*/
+
+@media(max-width:768px){
+
+.overlay{
+
+    padding:25px;
+
+}
+
+.left-panel h1{
+
+    font-size:38px;
+
+    line-height:48px;
+
+}
+
+.tagline{
+
+    font-size:18px;
+
+}
+
+.description{
+
+    font-size:16px;
+
+    line-height:28px;
+
+}
+
+.logo{
+
+    width:90px;
+
+}
+
+.welcome-card{
+
+    width:100%;
+
+    max-width:360px;
+
+    padding:35px 25px;
+
+}
+
+.card-logo{
+
+    width:75px;
+
+}
+
+.btn{
+
+    font-size:16px;
+
+}
+
+.feature{
+
+    font-size:16px;
+
+}
+
+}
+
+/*=========================================
+        SMALL MOBILE
+=========================================*/
+
+@media(max-width:480px){
+
+.left-panel h1{
+
+    font-size:30px;
+
+    line-height:40px;
+
+}
+
+.description{
+
+    font-size:15px;
+
+}
+
+.logo{
+
+    width:70px;
+
+}
+
+.card-logo{
+
+    width:60px;
+
+}
+
+}

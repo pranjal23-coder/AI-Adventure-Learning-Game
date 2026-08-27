@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Level Selection | AI Adventure Learning Game</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/levels.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+<div class="overlay">
+
+    <!-- ===========================
+            SIDEBAR
+    =========================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo-section">
+
+            <img src="{{ url_for('static', filename='images/logo.png') }}"
+                 class="logo">
+
+            <h2>AI Adventure</h2>
+            <p>Learning Game</p>
+
+        </div>
+
+        <nav class="menu">
+
+            <a href="{{ url_for('dashboard') }}" class="menu-item">
+                <i class="fas fa-house"></i>
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('quiz', level=1) }}" class="menu-item">
+                <i class="fas fa-code"></i>
+                Coding Quiz
+            </a>
+
+            <a href="{{ url_for('levels') }}" class="menu-item active">
+                <i class="fas fa-map"></i>
+                Levels
+            </a>
+
+            <a href="{{ url_for('leaderboard') }}" class="menu-item">
+                <i class="fas fa-trophy"></i>
+                Leaderboard
+            </a>
+
+            <a href="{{ url_for('profile') }}" class="menu-item">
+                <i class="fas fa-user"></i>
+                Profile
+            </a>
+
+            <a href="{{ url_for('achievement') }}" class="menu-item">
+                <i class="fas fa-medal"></i>
+                Achievements
+            </a>
+
+            <a href="{{ url_for('settings') }}" class="menu-item">
+                <i class="fas fa-gear"></i>
+                Settings
+            </a>
+
+            <a href="{{ url_for('logout') }}" class="menu-item logout">
+                <i class="fas fa-right-from-bracket"></i>
+                Logout
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- ===========================
+            MAIN CONTENT
+    =========================== -->
+
+    <div class="main-content">
+
+
+        <!-- ===========================
+                TOP BAR
+        =========================== -->
+
+        <div class="top-bar">
+
+            <div class="title">
+
+                <h1>🗺 Choose Your Adventure</h1>
+
+                <p>
+                    Explore every world and continue your coding adventure.
+                </p>
+
+            </div>
+
+
+            <div class="player-box">
+
+                <div class="xp-box">
+
+                    <i class="fas fa-star"></i>
+
+                    <span>XP : 2450</span>
+
+                </div>
+
+
+                <div class="level-box">
+
+                    <i class="fas fa-crown"></i>
+
+                    <span>Level 4 Explorer</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ===========================
+                OVERALL PROGRESS
+        =========================== -->
+
+        <div class="overall-progress">
+
+            <h3>Overall Adventure Progress</h3>
+
+            <div class="progress-bar">
+
+                <div class="progress-fill"
+                     style="width:65%;">
+
+                </div>
+
+            </div>
+
+            <p>4 of 6 Worlds Completed</p>
+
+        </div>
+
+
+        <!-- ===========================
+                LEVEL GRID
+        =========================== -->
+
+        <div class="level-grid">
+
+
+            <!-- ===========================
+                    LEVEL 1
+            =========================== -->
+
+            <a href="{{ url_for('missions', level=1) }}"
+               class="level-link">
+
+                <div class="level-card unlocked">
+
+                    <img src="{{ url_for('static', filename='images/forest.jpg') }}"
+                         alt="HTML">
+
+                    <div class="level-content">
+
+                        <span class="badge beginner">
+                            Beginner
+                        </span>
+
+                        <h2>🌲 HTML</h2>
+
+                        <p>
+                            Learn HTML tags, forms, tables,
+                            lists and create your first web pages.
+                        </p>
+
+                        <div class="progress">
+
+                            <div class="progress-fill"
+                                 style="width:100%;">
+
+                            </div>
+
+                        </div>
+
+                        <p class="xp">
+                            ⭐ Reward : 500 XP
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+
+            <!-- ===========================
+                    LEVEL 2
+            =========================== -->
+
+            <a href="{{ url_for('missions', level=2) }}"
+               class="level-link">
+
+                <div class="level-card unlocked">
+
+                    <img src="{{ url_for('static', filename='images/ice.jpg') }}"
+                         alt="CSS">
+
+                    <div class="level-content">
+
+                        <span class="badge beginner">
+                            Beginner
+                        </span>
+
+                        <h2>🏰 CSS</h2>
+
+                        <p>
+                            Master colors, layouts,
+                            Flexbox, Grid and animations.
+                        </p>
+
+                        <div class="progress">
+
+                            <div class="progress-fill"
+                                 style="width:70%;">
+
+                            </div>
+
+                        </div>
+
+                        <p class="xp">
+                            ⭐ Reward : 700 XP
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+
+            <!-- ===========================
+                    LEVEL 3
+            =========================== -->
+
+            <a href="{{ url_for('missions', level=3) }}"
+               class="level-link">
+
+                <div class="level-card unlocked">
+
+                    <img src="{{ url_for('static', filename='images/castle.jpg') }}"
+                         alt="JavaScript">
+
+                    <div class="level-content">
+
+                        <span class="badge intermediate">
+                            Intermediate
+                        </span>
+
+                        <h2>⚡ JavaScript</h2>
+
+                        <p>
+                            Variables, loops,
+                            functions, DOM and events.
+                        </p>
+
+                        <div class="progress">
+
+                            <div class="progress-fill"
+                                 style="width:35%;">
+
+                            </div>
+
+                        </div>
+
+                        <p class="xp">
+                            ⭐ Reward : 1000 XP
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+
+            <!-- ===========================
+                    LEVEL 4
+            =========================== -->
+
+            <a href="{{ url_for('missions', level=4) }}"
+               class="level-link">
+
+                <div class="level-card unlocked">
+
+                    <img src="{{ url_for('static', filename='images/cave.jpg') }}"
+                         alt="Python">
+
+                    <div class="level-content">
+
+                        <span class="badge advanced">
+                            Advanced
+                        </span>
+
+                        <h2>🐍 Python</h2>
+
+                        <p>
+                            Learn Python programming,
+                            OOP and file handling.
+                        </p>
+
+                        <div class="progress">
+
+                            <div class="progress-fill"
+                                 style="width:0%;">
+
+                            </div>
+
+                        </div>
+
+                        <p class="xp">
+                            ⭐ Reward : 1200 XP
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+
+            <!-- ===========================
+                    LEVEL 5
+            =========================== -->
+
+            <a href="{{ url_for('missions', level=5) }}"
+               class="level-link">
+
+                <div class="level-card unlocked">
+
+                    <img src="{{ url_for('static', filename='images/space.jpg') }}"
+                         alt="Artificial Intelligence">
+
+                    <div class="level-content">
+
+                        <span class="badge expert">
+                            Expert
+                        </span>
+
+                        <h2>🤖 Artificial Intelligence</h2>
+
+                        <p>
+                            Explore Artificial Intelligence,
+                            Machine Learning basics.
+                        </p>
+
+                        <div class="progress">
+
+                            <div class="progress-fill"
+                                 style="width:0%;">
+
+                            </div>
+
+                        </div>
+
+                        <p class="xp">
+                            ⭐ Reward : 1500 XP
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+
+            <!-- ===========================
+                    LEVEL 6
+            =========================== -->
+
+            <a href="{{ url_for('missions', level=6) }}"
+               class="level-link">
+
+                <div class="level-card unlocked">
+
+                    <img src="{{ url_for('static', filename='images/crystal.png') }}"
+                         alt="Machine Learning">
+
+                    <div class="level-content">
+
+                        <span class="badge master">
+                            Master
+                        </span>
+
+                        <h2>🚀 Machine Learning</h2>
+
+                        <p>
+                            Train intelligent models
+                            and become an AI Master.
+                        </p>
+
+                        <div class="progress">
+
+                            <div class="progress-fill"
+                                 style="width:0%;">
+
+                            </div>
+
+                        </div>
+
+                        <p class="xp">
+                            ⭐ Reward : 2000 XP
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+
+        </div>
+
+
+        <!-- ===========================
+                FOOTER
+        =========================== -->
+
+        <footer class="footer">
+
+            <p>
+                ©️ 2026 AI Adventure Learning Game |
+                Keep Learning • Keep Exploring 🚀
+            </p>
+
+        </footer>
+
+
+    </div>
+
+</div>
+
+</body>
+

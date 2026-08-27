@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Settings | AI Adventure Learning Game</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/settings.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ===========================
+            SIDEBAR
+    =========================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo-section">
+
+            <img src="{{ url_for('static', filename='images/logo.png') }}"
+                 class="logo">
+
+            <h2>AI Adventure</h2>
+
+            <p>Learning Game</p>
+
+        </div>
+
+        <nav class="menu">
+
+            <a href="{{ url_for('dashboard') }}" class="menu-item">
+                <i class="fas fa-house"></i>
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('quiz', level=1) }}" class="menu-item">
+                <i class="fas fa-code"></i>
+                Coding Quiz
+            </a>
+
+            <a href="{{ url_for('levels') }}" class="menu-item">
+                <i class="fas fa-map"></i>
+                Levels
+            </a>
+
+            <a href="{{ url_for('leaderboard') }}" class="menu-item">
+                <i class="fas fa-trophy"></i>
+                Leaderboard
+            </a>
+
+            <a href="{{ url_for('profile') }}" class="menu-item">
+                <i class="fas fa-user"></i>
+                Profile
+            </a>
+
+            <a href="{{ url_for('achievement') }}" class="menu-item">
+                <i class="fas fa-medal"></i>
+                Achievements
+            </a>
+
+            <a href="{{ url_for('settings') }}" class="menu-item active">
+                <i class="fas fa-gear"></i>
+                Settings
+            </a>
+
+            <a href="{{ url_for('logout') }}" class="menu-item logout">
+                <i class="fas fa-right-from-bracket"></i>
+                Logout
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- ===========================
+            MAIN CONTENT
+    =========================== -->
+
+    <div class="main-content">
+
+        <div class="top-bar">
+
+            <div>
+
+                <h1>⚙ Settings</h1>
+
+                <p>Customize your game experience.</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ===========================
+             SUCCESS MESSAGE
+        =========================== -->
+
+        {% if saved %}
+
+        <div class="success-message">
+
+            <i class="fas fa-circle-check"></i>
+
+            Settings saved successfully!
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- ===========================
+             SETTINGS FORM
+        =========================== -->
+
+        <form method="POST"
+              action="{{ url_for('settings') }}">
+
+
+            <!-- ===========================
+                 GAME PREFERENCES
+            =========================== -->
+
+            <div class="settings-card">
+
+                <h2>🎮 Game Preferences</h2>
+
+
+                <!-- SOUND -->
+
+                <div class="setting-item">
+
+                    <label>
+                        Sound Effects
+                    </label>
+
+                    <input type="checkbox"
+                           name="sound"
+                           {% if not saved or request.form.get('sound') %}
+                           checked
+                           {% endif %}>
+
+                </div>
+
+
+                <!-- MUSIC -->
+
+                <div class="setting-item">
+
+                    <label>
+                        Background Music
+                    </label>
+
+                    <input type="checkbox"
+                           name="music"
+                           {% if not saved or request.form.get('music') %}
+                           checked
+                           {% endif %}>
+
+                </div>
+
+
+                <!-- NOTIFICATIONS -->
+
+                <div class="setting-item">
+
+                    <label>
+                        Notifications
+                    </label>
+
+                    <input type="checkbox"
+                           name="notifications"
+                           {% if not saved or request.form.get('notifications') %}
+                           checked
+                           {% endif %}>
+
+                </div>
+
+            </div>
+
+
+            <!-- ===========================
+                 GENERAL SETTINGS
+            =========================== -->
+
+            <div class="settings-card">
+
+                <h2>⚙ General Settings</h2>
+
+
+                <!-- LANGUAGE -->
+
+                <div class="setting-item">
+
+                    <label>
+                        Language
+                    </label>
+
+                    <select name="language">
+
+                        <option value="English">
+                            English
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- HELP -->
+
+                <div class="setting-item">
+
+                    <label>
+                        Help & Support
+                    </label>
+
+                    <button type="button"
+                            class="small-btn">
+
+                        Open
+
+                    </button>
+
+                </div>
+
+
+                <!-- ABOUT -->
+
+                <div class="setting-item">
+
+                    <label>
+                        About Game
+                    </label>
+
+                    <button type="button"
+                            class="small-btn">
+
+                        View
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ===========================
+                 SAVE BUTTON
+            =========================== -->
+
+            <div class="save-section">
+
+                <button type="submit"
+                        class="save-btn">
+
+                    <i class="fas fa-save"></i>
+
+                    Save Changes
+
+                </button>
+
+            </div>
+
+        </form>
+
+
+        <!-- ===========================
+                 FOOTER
+        =========================== -->
+
+        <footer class="footer">
+
+            <p>
+
+                ©️ 2026 AI Adventure Learning Game |
+                Keep Learning • Keep Exploring 🚀
+
+            </p>
+
+        </footer>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

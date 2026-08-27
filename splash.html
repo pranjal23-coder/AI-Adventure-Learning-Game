@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Adventure Learning Game</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/splash.css') }}">
+
+   <script>
+        setTimeout(function () {
+            window.location.href = "/welcome";
+        }, 2500);
+    </script>
+</head>
+
+<body>
+
+<div class="overlay"></div>
+
+<div class="splash-card">
+
+    <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo">
+
+    <h1>AI Adventure</h1>
+    <h2>Learning Game</h2>
+
+    <p class="tagline">
+        Learn • Play • Explore
+    </p>
+
+    <p class="loading-text">
+        Loading...
+    </p>
+
+    <div class="loading-bar">
+
+        <div class="progress"></div>
+
+    </div>
+
+    <p class="subtitle">
+        Preparing your adventure...
+    </p>
+
+</div>
+
+</body>
+</html>
